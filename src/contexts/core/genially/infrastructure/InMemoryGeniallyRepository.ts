@@ -4,7 +4,11 @@ import GeniallyRepository from "../domain/GeniallyRepository";
 export default class InMemoryGeniallyRepository implements GeniallyRepository {
   private geniallys: Genially[];
 
-  async save(genially: Genially): Promise<void> {
+  constructor() {
+    this.geniallys = [];
+  }
+
+  async save(genially: Genially): Promise<void> {    
     await this.delete(genially.id);
     this.geniallys.push(genially);
   }

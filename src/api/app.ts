@@ -2,9 +2,7 @@ import bodyParser from "body-parser";
 import compression from "compression";
 import express from "express";
 import lusca from "lusca";
-
-// Controllers (route handlers)
-import * as healthController from "./controllers/health";
+import router from "./routes";
 
 // Create Express server
 const app = express();
@@ -17,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
 
-// Primary app routes
-app.get("/", healthController.check);
+
+app.use('/api/v1/', router); // routes
 
 export default app;
