@@ -28,8 +28,6 @@ export class GeniallyController {
                 id: newGenially.id,
                 create_at: newGenially.createdAt
             });
-
-            console.log("Genuallys:", this.inMemoryGeniallyRepository.geniallys);
             
         } catch (error) {
             res.status(500).json({
@@ -46,7 +44,7 @@ export class GeniallyController {
 
             const genially: Genially = await this.inMemoryGeniallyRepository.find(id);
             genially.recordDeleteAt(id);
-            
+
             await this.inMemoryGeniallyRepository.delete(genially.id);           
             res.status(200).json({ 
                 id, 

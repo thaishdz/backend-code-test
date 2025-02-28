@@ -3,7 +3,7 @@ import GeniallyNotExist from "../domain/GeniallyNotExist";
 import GeniallyRepository from "../domain/GeniallyRepository";
 
 export default class InMemoryGeniallyRepository implements GeniallyRepository {
-  public geniallys: Genially[];
+  private geniallys: Genially[];
 
   constructor() {
     this.geniallys = [];
