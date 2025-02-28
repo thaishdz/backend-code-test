@@ -36,4 +36,15 @@ export default class Genially {
   get deletedAt(): Date {
     return this._deletedAt;
   }
+
+  public edit(name: string): this {
+    this._name = name;
+    this._modifiedAt = new Date();
+    return this;
+  }
+
+  public recordDeleteAt(id: string): void {
+    this._deletedAt = new Date();
+  }
+
 }

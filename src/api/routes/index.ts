@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 
 import * as healthController from "../controllers/health";
 import InMemoryGeniallyRepository from "../../contexts/core/genially/infrastructure/InMemoryGeniallyRepository";
@@ -15,7 +15,7 @@ router.get("/", healthController.check);
 
 // Use Cases
 
-router.post("/create", [
+router.post("/genially", [
     body('name')
         .notEmpty().withMessage('A name is required')
         .isLength({min: 3, max: 20}).withMessage('Must be between 3 and 20 characters'),
@@ -25,6 +25,9 @@ router.post("/create", [
         .isLength({max: 125})
 ], geniallyController.create.bind(geniallyController));
 
+
+router.patch("/genially/:id", geniallyController.edit.bind(geniallyController));
+router.delete("/genially/:id", geniallyController.delete.bind(geniallyController));
 
 
 export default router;
