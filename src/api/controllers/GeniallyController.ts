@@ -31,8 +31,7 @@ export class GeniallyController {
             
         } catch (error) {
             res.status(500).json({
-                message: "Error saving the new Genially",
-                error: error.message
+                message: "Error saving the new Genially"
             });
         }
     }
