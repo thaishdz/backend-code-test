@@ -1,5 +1,6 @@
-import Genially from "../domain/Genially";
-import GeniallyRepository from "../domain/GeniallyRepository";
+import { Document } from "mongoose";
+import { GeniallyModel } from "../domain/schemas/genially.schema";
+import DBGeniallyRepository from "../infrastructure/DBGeniallyRepository";
 
 type CreateGeniallyServiceRequest = {
   id: string;
@@ -7,16 +8,23 @@ type CreateGeniallyServiceRequest = {
   description: string;
 };
 
-export default class CreateGeniallyService {
-  constructor(private repository: GeniallyRepository) {}
+interface GeniallyDocument extends Document {
+  id: string;
+  name: string;
+  description: string;
+}
 
-  public async execute(req: CreateGeniallyServiceRequest): Promise<Genially> {
+export default class CreateGeniallyService {
+  
+  constructor(private repository: DBGeniallyRepository) {}
+
+  public async execute(req: CreateGeniallyServiceRequest): Promise<GeniallyDocument> {
     const { id, name, description } = req;
 
-    const genially = new Genially(id, name, description);
+    const genially = new GeniallyModel({id, name, description});
 
-    await this.repository.save(genially);
-
+    await this.repository.save(genially);  
+     
     return genially;
   }
 }
