@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import DBGeniallyRepository from '../../contexts/core/genially/infrastructure/DBGeniallyRepository';
 
 import { generateRandomString } from '../../utils/helpers';
 import GeniallyNotExist from '../../contexts/core/genially/domain/GeniallyNotExist';
@@ -10,15 +9,11 @@ import { IGeniallyDocument } from '../../types/genially.document'
 import RenameGeniallyService from '../../contexts/core/genially/application/RenameGeniallyService';
 
 export class GeniallyController {
-    createGeniallyService: CreateGeniallyService;
-    deleteGeniallyService: DeleteGeniallyService;
-    renameGeniallyService: RenameGeniallyService;
-
-    constructor(private dbGeniallyRepository: DBGeniallyRepository) {
-        this.createGeniallyService = new CreateGeniallyService(dbGeniallyRepository);
-        this.deleteGeniallyService = new DeleteGeniallyService(dbGeniallyRepository);
-        this.renameGeniallyService = new RenameGeniallyService(dbGeniallyRepository);
-    }
+    constructor(
+        private createGeniallyService: CreateGeniallyService,
+        private deleteGeniallyService: DeleteGeniallyService,
+        private renameGeniallyService: RenameGeniallyService
+    ) {}
 
     async create(req: Request, res: Response) {
         const errors = validationResult(req);

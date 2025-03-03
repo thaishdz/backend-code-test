@@ -4,11 +4,21 @@ import { body } from 'express-validator';
 import * as healthController from "../controllers/health";
 import { GeniallyController } from "../controllers/GeniallyController";
 import DBGeniallyRepository from "../../contexts/core/genially/infrastructure/DBGeniallyRepository";
+import CreateGeniallyService from "src/contexts/core/genially/application/CreateGeniallyService";
+import DeleteGeniallyService from "src/contexts/core/genially/application/DeleteGeniallyService";
+import RenameGeniallyService from "src/contexts/core/genially/application/RenameGeniallyService";
 
 const router = Router();
 
 const dbGeniallyRepository: DBGeniallyRepository = new DBGeniallyRepository();
-const geniallyController: GeniallyController = new GeniallyController(dbGeniallyRepository);
+const createGeniallyService: CreateGeniallyService = new CreateGeniallyService(dbGeniallyRepository);
+const deleteGeniallyService: DeleteGeniallyService = new DeleteGeniallyService(dbGeniallyRepository);
+const renameGeniallyService: RenameGeniallyService = new RenameGeniallyService(dbGeniallyRepository);
+const geniallyController: GeniallyController = new GeniallyController(
+    createGeniallyService, 
+    deleteGeniallyService, 
+    renameGeniallyService
+);
 
 // Primary app routes
 router.get("/", healthController.check); 

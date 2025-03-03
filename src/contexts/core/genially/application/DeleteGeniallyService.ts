@@ -9,7 +9,6 @@ export default class DeleteGeniallyService {
       const geniallyToDelete: IGeniallyDocument = await this.repository.find(id);
       await this.repository.delete(geniallyToDelete);
       await this.repository.save(geniallyToDelete);
-    
   }
 
 }
