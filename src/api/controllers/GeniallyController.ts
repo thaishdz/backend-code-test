@@ -48,7 +48,6 @@ export class GeniallyController {
         const { id } = req.params;
 
         try {
-
             await this.deleteGeniallyService.execute(id);        
             res.status(200).json({id});
 
@@ -56,14 +55,15 @@ export class GeniallyController {
 
             if (error instanceof GeniallyNotExist) {
                 res.status(404).json({ error: error, message: error.message });
+            } else {
+                // Another errors ...
+                res.status(500).json({ error: error, message: error.message });
             }
-            
-            // Another errors ...
-            res.status(500).json({ error: error, message: error.message });
+
         }
     }
 
-    async edit (req: Request, res: Response) {
+    async edit(req: Request, res: Response) {
         const { id } = req.params;
         const { name } = req.body;
 
@@ -77,11 +77,10 @@ export class GeniallyController {
         } catch (error) {
 
             if (error instanceof GeniallyNotExist) {
-                res.status(404).json({ error: error, message: error.message });
+                res.status(404).json({ error, message: error.message });
+            } else {
+                res.status(500).json({error, message: error.message })
             }
-            
-            // Another errors ...
-            res.status(500).json({ error: error, message: error.message });
         }
     }
 }
