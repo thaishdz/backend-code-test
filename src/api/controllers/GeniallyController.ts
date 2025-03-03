@@ -69,10 +69,6 @@ export class GeniallyController {
 
         try {
             const genially : IGeniallyDocument = await this.renameGeniallyService.execute(id, name);
-            //const genially: Genially = await this.inMemoryGeniallyRepository.find(id);
-            //const oldName = genially.name;
-            //genially.edit(name);
-
             res.status(200).json({
                 id: genially.id, 
                 modified_at: genially.updatedAt,

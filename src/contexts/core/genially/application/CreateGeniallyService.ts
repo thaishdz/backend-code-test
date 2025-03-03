@@ -1,7 +1,7 @@
 import { GeniallyModel } from "../domain/schemas/genially.schema";
 import DBGeniallyRepository from "../infrastructure/DBGeniallyRepository";
 import { IGeniallyDocument } from "src/types/genially.document";
-
+import { incrementCounter, getCounterByName } from "../../../../utils/counter";
 
 type CreateGeniallyServiceRequest = {
   id: string;
@@ -19,7 +19,11 @@ export default class CreateGeniallyService {
     const genially = new GeniallyModel({id, name, description});
 
     await this.repository.save(genially);  
-     
+
+    await incrementCounter('geniallies_created');
+
+    //console.log("counter:", await getCounterByName('geniallies_created'));
+    
     return genially;
   }
 }
