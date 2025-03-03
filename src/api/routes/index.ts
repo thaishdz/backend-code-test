@@ -4,9 +4,9 @@ import { body } from 'express-validator';
 import * as healthController from "../controllers/health";
 import { GeniallyController } from "../controllers/GeniallyController";
 import DBGeniallyRepository from "../../contexts/core/genially/infrastructure/DBGeniallyRepository";
-import CreateGeniallyService from "src/contexts/core/genially/application/CreateGeniallyService";
-import DeleteGeniallyService from "src/contexts/core/genially/application/DeleteGeniallyService";
-import RenameGeniallyService from "src/contexts/core/genially/application/RenameGeniallyService";
+import CreateGeniallyService from "../../contexts/core/genially/application/CreateGeniallyService";
+import DeleteGeniallyService from "../../contexts/core/genially/application/DeleteGeniallyService";
+import RenameGeniallyService from "../../contexts/core/genially/application/RenameGeniallyService";
 
 const router = Router();
 
