@@ -10,7 +10,7 @@ const router = Router();
 
 const inMemoryGeniallyRepository: InMemoryGeniallyRepository = new InMemoryGeniallyRepository();
 const dbGeniallyRepository: DBGeniallyRepository = new DBGeniallyRepository();
-const geniallyController: GeniallyController = new GeniallyController(inMemoryGeniallyRepository, dbGeniallyRepository);
+const geniallyController: GeniallyController = new GeniallyController(dbGeniallyRepository);
 
 // Primary app routes
 router.get("/", healthController.check); 

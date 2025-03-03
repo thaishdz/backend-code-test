@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import Genially from '../../contexts/core/genially/domain/Genially';
 import DBGeniallyRepository from '../../contexts/core/genially/infrastructure/DBGeniallyRepository';
 import InMemoryGeniallyRepository from '../../contexts/core/genially/infrastructure/InMemoryGeniallyRepository';
 
@@ -8,14 +7,19 @@ import { generateRandomString } from '../../utils/helpers';
 import GeniallyNotExist from '../../contexts/core/genially/domain/GeniallyNotExist';
 import CreateGeniallyService from '../../contexts/core/genially/application/CreateGeniallyService';
 import DeleteGeniallyService from '../../contexts/core/genially/application/DeleteGeniallyService';
+import { IGeniallyDocument } from '../../types/genially.document'
+import RenameGeniallyService from '../../contexts/core/genially/application/RenameGeniallyService';
 
 export class GeniallyController {
     createGeniallyService: CreateGeniallyService;
     deleteGeniallyService: DeleteGeniallyService;
+    renameGeniallyService: RenameGeniallyService;
 
-    constructor(private inMemoryGeniallyRepository: InMemoryGeniallyRepository, private dbGeniallyRepository: DBGeniallyRepository) {
+    constructor(private dbGeniallyRepository: DBGeniallyRepository) {
         this.createGeniallyService = new CreateGeniallyService(dbGeniallyRepository);
         this.deleteGeniallyService = new DeleteGeniallyService(dbGeniallyRepository);
+        this.renameGeniallyService = new RenameGeniallyService(dbGeniallyRepository);
+        
     }
 
     async create(req: Request, res: Response) {
@@ -66,16 +70,14 @@ export class GeniallyController {
         const { name } = req.body;
 
         try {
+            const genially : IGeniallyDocument = await this.renameGeniallyService.execute(id, name);
+            //const genially: Genially = await this.inMemoryGeniallyRepository.find(id);
+            //const oldName = genially.name;
+            //genially.edit(name);
 
-            const genially: Genially = await this.inMemoryGeniallyRepository.find(id);
-            const oldName = genially.name;
-            genially.edit(name);
-
-            res.status(200).json({ 
+            res.status(200).json({
                 id: genially.id, 
-                old_name: oldName, 
-                new_name: genially.name, 
-                modified_at: genially.modifiedAt,
+                modified_at: genially.updatedAt,
             });
 
         } catch (error) {
