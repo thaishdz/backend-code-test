@@ -2,13 +2,11 @@ import { Router } from "express";
 import { body } from 'express-validator';
 
 import * as healthController from "../controllers/health";
-import InMemoryGeniallyRepository from "../../contexts/core/genially/infrastructure/InMemoryGeniallyRepository";
 import { GeniallyController } from "../controllers/GeniallyController";
 import DBGeniallyRepository from "../../contexts/core/genially/infrastructure/DBGeniallyRepository";
 
 const router = Router();
 
-const inMemoryGeniallyRepository: InMemoryGeniallyRepository = new InMemoryGeniallyRepository();
 const dbGeniallyRepository: DBGeniallyRepository = new DBGeniallyRepository();
 const geniallyController: GeniallyController = new GeniallyController(dbGeniallyRepository);
 
