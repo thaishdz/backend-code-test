@@ -47,8 +47,8 @@ export class GeniallyController {
 
         try {
 
-            const geniallySoftDeleted = await this.deleteGeniallyService.execute(id);        
-            res.status(200).json({id, deletedAt: geniallySoftDeleted.deletedAt});
+            await this.deleteGeniallyService.execute(id);        
+            res.status(200).json({id});
 
         } catch (error) {
 

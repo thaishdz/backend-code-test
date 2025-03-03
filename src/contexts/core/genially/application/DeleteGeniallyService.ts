@@ -4,8 +4,9 @@ export default class DeleteGeniallyService {
 
   constructor(private dbGeniallyRepository: DBGeniallyRepository){}
 
-  public async execute(id: string): Promise<IGeniallyDocument> {
-    return this.dbGeniallyRepository.findAndDelete(id);
+  public async execute(id: string): Promise<void> {
+    const geniallyToDelete: IGeniallyDocument = await this.dbGeniallyRepository.find(id);
+    return this.dbGeniallyRepository.delete(geniallyToDelete);
   }
 
 }
