@@ -25,7 +25,7 @@ export class GeniallyController {
         const { name, description } = req.body;
 
         const request = {
-            id: generateRandomString(),
+            //id: generateRandomString(),
             name,
             description
         }
@@ -40,11 +40,11 @@ export class GeniallyController {
     }
 
     async delete(req: Request, res: Response) {
-        const { id } = req.params;
+        const { _id } = req.params;
 
         try {
-            await this.deleteGeniallyService.execute(id);        
-            res.status(200).json({id});
+            await this.deleteGeniallyService.execute(_id);        
+            res.status(200).json({_id});
 
         } catch (error) {
 
@@ -59,11 +59,11 @@ export class GeniallyController {
     }
 
     async edit(req: Request, res: Response) {
-        const { id } = req.params;
+        const { _id } = req.params;
         const { name } = req.body;
 
         try {
-            const genially : IGeniallyDocument = await this.renameGeniallyService.execute(id, name);
+            const genially : IGeniallyDocument = await this.renameGeniallyService.execute(_id, name);
             res.status(200).json({
                 id: genially.id, 
                 modified_at: genially.updatedAt,

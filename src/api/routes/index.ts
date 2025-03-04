@@ -36,8 +36,8 @@ router.post("/genially", [
 ], geniallyController.create.bind(geniallyController));
 
 
-router.patch("/genially/:id", geniallyController.edit.bind(geniallyController));
-router.delete("/genially/:id", geniallyController.delete.bind(geniallyController));
+router.patch("/genially/:_id", geniallyController.edit.bind(geniallyController));
+router.delete("/genially/:_id", geniallyController.delete.bind(geniallyController));
 
 
 export default router;
