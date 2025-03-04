@@ -12,6 +12,7 @@ export default class RenameGeniallyService {
     if (genially.deletedAt) {      
       throw new GeniallyNotExist(genially.id);
     }
+    
     return this.repository.rename(newName, genially);
   }
 }
