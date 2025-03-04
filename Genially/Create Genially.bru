@@ -1,0 +1,22 @@
+meta {
+  name: Create Genially
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE}}/api/v1/genially
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Nuevo genially!",
+    "description": "Nueva presentación"
+  }
+}
+
+body:form-urlencoded {
+  name: Genially
+}
